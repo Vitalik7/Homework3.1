@@ -1,48 +1,67 @@
 var arr1 = [2, -1, 9, -12, 7, 4]
+var arr2 = [1, 4, -5, 'Array', 2, 9, true, 'Hello', NaN, 'Iphone', 7, 4]
 
 /*    myForEach     */ 
 Array.prototype.myForEach = function(callbackfn) {
-  for (var i = 0; i < arr1.length; i++) {
+  for (var i = 0; i < this.length; i++) {
     callbackfn(this[i], i, this)
   }
 }
 
-arr1.myForEach(function(el, index) {
-  console.log('res: ' + el, 'index: ' + index)
-  }  
-)
+try {
+  arr1.myForEach(function(element, index, arr1) {
+  console.log('res: ' + element, 'index: ' + index, 'array: ' + arr1)
+  })
+}
 
-console.log('---------------------------')
+catch(err) {
+    console.log(err.name + ': ' + err.message)    
+}
+console.log('--------------------------------------')
 
 /*    myMap     */   
 Array.prototype.myMap = function(callbackfn) {
-  for (var i = 0; i < arr1.length; i++) {
-    callbackfn.call(this[i], i, this)  
+  for (var i = 0; i < this.length; i++) {
+    this[i] = callbackfn(this[i], i, this)  
   }
   return callbackfn  
 }
 
 arr1.myMap(function(el) {
-  return el
+  return el += 1
   }
 )
-console.log(arr1)
 
+console.log(arr1)
 console.log('---------------------------')
 
 /*    mySort     */ 
-Array.prototype.mySort = function() { 
-  for (var i = 1; i < arr1.length; i++) {
-    var el = null
-    if(arr1[i] < arr1[i - 1]){ 
-      el = arr1[i] 
-      arr1[i] = arr1[i - 1]
-      arr1[i - 1] = el
+Array.prototype.mySort = function (callbackfn) {
+  callbackfn = callbackfn || function (first, second) {
+    if (first === second) {
+      return 0
+    } else if (first > second) {
+      return 1
+    } else {
+      return -1
+    }
+  }
+
+  for (var i = 0; i < this.length; i++) {
+    if (callbackfn(this[i], this[i + 1]) == 1 && i >= 0) {
+      var element = this[i]
+      this[i] = this[i - 1]
+      this[i - 1] = element
       i = 0
     }
   }
+
+  return this
 }
 
-arr1.mySort()
+var sorted = arr2.sort()
+var mySorted = arr2.mySort()
 
-console.log(arr1)
+
+console.log(sorted)
+console.log(mySorted)
