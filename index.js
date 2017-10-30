@@ -21,14 +21,14 @@ console.log('--------------------------------------')
 
 /*    myMap     */   
 Array.prototype.myMap = function(callbackfn) {
-  for (var i = 0; i < this.length; i++) {
+  for (var i = 0; i < this.length -1; i++) {
     this[i] = callbackfn(this[i], i, this)  
   }
-  return callbackfn  
+  return this  
 }
 
 arr1.myMap(function(el) {
-  return el += 1
+  return el + 10
   }
 )
 
@@ -48,11 +48,11 @@ Array.prototype.mySort = function (callbackfn) {
   }
 
   for (var i = 0; i < this.length; i++) {
-    if (callbackfn(this[i], this[i + 1]) == 1 && i >= 0) {
+    if (callbackfn(this[i], this[i + 1]) === 1 && i >= 0) {
       var element = this[i]
-      this[i] = this[i - 1]
-      this[i - 1] = element
-      i = 0
+      this[i] = this[i + 1]
+      this[i + 1] = element
+      i -= 2
     }
   }
 
