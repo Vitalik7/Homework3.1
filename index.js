@@ -21,18 +21,21 @@ console.log('--------------------------------------')
 
 /*    myMap     */   
 Array.prototype.myMap = function(callbackfn) {
-  for (var i = 0; i < this.length -1; i++) {
-    this[i] = callbackfn(this[i], i, this)  
+  var result = []
+  for (var i = 0; i < this.length; i++) {
+    result.push(callbackfn(this[i], i, this))  
   }
-  return this  
+  return result 
 }
 
-arr1.myMap(function(el) {
-  return el + 10
+myArr = arr1.myMap(function(element, index, array) {
+  return element + 'a'
   }
 )
 
 console.log(arr1)
+console.log(myArr)
+
 console.log('---------------------------')
 
 /*    mySort     */ 
